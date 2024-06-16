@@ -1,3 +1,4 @@
+import sys
 import torch
 import argparse
 import torch.nn as nn
@@ -209,12 +210,12 @@ m = model.to(device)
 # create a PyTorch optimizer
 optimizer = torch.optim.AdamW(m.parameters(), lr=learning_rate)
 
-for iter in tqdm(range(max_iters)):
+for iter in tqdm(range(max_iters), file=sys.stdout):
 
     # evaluate model and print losses
     if iter % eval_interval == 0:
         losses = estimate_loss()
-        tqdm.write(f'Step {iter}: train loss {losses['train']:.4f}, val loss {losses['val']:.4f}')
+        tqdm.write(f'Step {iter}: train loss {losses["train"]:.4f}, val loss {losses["val"]:.4f}')
 
     # sample a batch of data
     xb, yb = get_batch('train')
